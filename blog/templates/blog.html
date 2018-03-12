@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Django Blog Test
+    </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                //$("a").text("Next");
+                $("a").attr("href","http://0.0.0.0:8009/blog/blog_read");
+
+                var title = $("#txt_title").val();
+                var content = $("#txt_content").val();
+                var name = $("#txt_name").val();
+                var pw = $("#txt_pw").val();
+                console.log(title);
+                console.log(content);
+                console.log(name);
+                console.log(pw);
+
+                // ajax
+                $.get("/blog", {
+
+                            title: title,
+                            content: content,
+                            name: name,
+                            pw: pw
+                        })
+                .done(function (data) {
+                    if(data.return == 'success'){
+                        alert('ok');
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+</head>
+<body>
+<h1> Hello Blog Text</h1>
+<!--<p> 번호 : <input type="text" name="no" id="int_no"></p>-->
+<p> 제목 : <input type="text" name="title" id="txt_title"></p>
+<p> 내용 : <input type="text" name="content" id="txt_content"></p>
+<p> 이름 : <input type="text" name="name" id="txt_name"></p>
+<p> 비밀번호 : <input type="text" name="pw" id="txt_pw"></p>
+<!--<p> 작성날짜 : <input type="datetime-local" name="resist_date" id="resist_date"></p>-->
+<!--<p> 수정날짜 : <input type="datetime" name="modify_date" id="modify_date"></p>-->
+<!--<input type="submit" name = "btn" value="입력!" onclick="alert('success')">-->
+<!--<input type = "button" name="btn1" value="입력" onclick="alert('success')">-->
+<button><a href="http://0.0.0.0:8009/blog/blog_read">next</a></button>
+</body>
+</html>
