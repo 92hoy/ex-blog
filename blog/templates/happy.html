@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Django Blog Test
+    </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+$( document ).ready(function() {
+    console.log( "ready!" );
+});
+
+function btn_delete(no){
+    console.log(no);
+
+    $.ajax({
+            type: "GET",
+            url: "/happy/delete",
+            async: false,
+            data: {
+                no: no,
+            },
+            success: function (data) {
+                if(data.return == 'success'){
+                    var no = data.no;
+                    //alert(no);
+                    no = '#' + no;
+                    $(no).remove();
+                }
+            },
+        });
+
+}
+
+function btn_submit(){
+    var input = $('#input').val();
+
+    $.ajax({
+            type: "GET",
+            url: "/happy/save",
+            async: false,
+            data: {
+                input: input,
+            },
+            success: function (data) {
+                if(data.return == 'success'){
+                    //alert(data.title);
+
+                    var html = ''+
+                        '<div id="frame" style="border: 1px solid black; padding: 20px;">'+
+                        '    <div id="user">'+
+                        '        운영자'+
+                        '    </div>'+
+                        '    <div id="comment" style="border: 0px solid black;">'+
+                                data.title +
+                        '    </div>'+
+                        '    <button onclick="btn_delete('+ data.no + ')" type="button" class="btn btn-outline-danger">삭제</button>'+
+                        '</div>';
+
+                    $('#main').append(html);
+                }
+            },
+        });
+
+
+}
+</script>
+
+<style>
+#input{
+    width: 80%;
+    float: left;
+}
+#comment{
+    border: 0px solid black;
+
+}
+.frame{
+    border: 1px solid black;
+    padding: 20px;
+}
+#line1{
+    margin-top:20px;
+}
+</style>
+
+</head>
+<body>
+
+<div id="main">
+    {% for row in rows %}
+    <div class="frame" id="{{row.1}}">
+        <div id="user">
+            운영자
+        </div>
+        <div id="comment">
+            {{row.0}}
+        </div>
+        <button onclick="btn_delete({{row.1}})" type="button" class="btn btn-outline-danger">삭제</button>
+    </div>
+    {% endfor %}
+</div>
+
+<div id="line1">
+    <input type="text" class="form-control" id="input" placeholder="">
+    <button onclick="btn_submit()" type="submit" class="btn btn-primary">작성</button>
+</div>
+
+</body>
+</html>
