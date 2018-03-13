@@ -10,6 +10,11 @@ urlpatterns = [
 
     url(r'^happy$', views.happy, name='happy'),
     url(r'^save$', views.happy_save, name='happy_save'),
-    url(r'^delete', views.happy_delete, name='happy_delete'),
+    url(r'^delete$', views.happy_delete, name='happy_delete'),
+
+    url(r'^exer$', views.exer, name='exer'),
+    url(r'^save1$', views.exer_save, name='exer_save'),
+    url(r'^delete1$', views.exer_delete, name='exer_delete'),
+    url(r'^exer_read/(?P<page>[0-9]{1,3})$', views.exer_read, name='exer_read'),
 
 ]

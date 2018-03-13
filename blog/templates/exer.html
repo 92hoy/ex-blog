@@ -14,16 +14,17 @@ $( document ).ready(function() {
     console.log( "ready!" );
 });
 
-function btn_delete(no){
+function btn_delete1(no){
     console.log(no);
 
     $.ajax({
             type: "GET",
-            url: "/happy/delete",
+            url: "/exer/delete1",
             async: false,
             data: {
                 no: no,
             },
+
             success: function (data) {
                 if(data.return == 'success'){
                     var no = data.no;
@@ -36,15 +37,21 @@ function btn_delete(no){
 
 }
 
-function btn_submit(){
-    var input = $('#input').val();
+function btn_submit1(){
+    var input1 = $('#input1').val();
+    var input2 = $('#input2').val();
+    var input3 = $('#input3').val();
+    var input4 = $('#input4').val();
 
     $.ajax({
             type: "GET",
-            url: "/happy/save",
+            url: "/exer/save1",
             async: false,
             data: {
-                input: input,
+                input1: input1,
+                input2: input2,
+                input3: input3,
+                input4: input4
             },
             success: function (data) {
                 if(data.return == 'success'){
@@ -57,6 +64,8 @@ function btn_submit(){
                         '    </div>'+
                         '    <div id="comment" style="border: 0px solid black;">'+
                                 data.title +
+                                data.content +
+                                data.name+
                         '    </div>'+
                         '    <button onclick="btn_delete('+ data.no +')" type="button" class="btn btn-outline-danger">삭제</button>'+
                         '</div>';
@@ -72,19 +81,19 @@ function btn_submit(){
 
 <style>
 #input{
-    width: 80%;
+    width: 100%;
     float: left;
 }
 #comment{
-    border: 0px solid black;
+    border: 1px solid darkgreen;
 
 }
 .frame{
-    border: 1px solid black;
-    padding: 20px;
+    border: 2px solid bisque;
+    padding: 5px;
 }
 #line1{
-    margin-top:20px;
+    margin-top:50px;
 }
 </style>
 <!-- -------------------------------------------------->
@@ -96,19 +105,46 @@ function btn_submit(){
     {% for row in rows %}
     <div class="frame" id="{{row.1}}">
         <div id="user">
-            운영자
+            <h4>{{row.1}}&nbsp {{row.2}}</h4>
         </div>
         <div id="comment">
-            {{row.0}}
+           {{row.1}} &nbsp {{row.0}} &nbsp {{row.2}} &nbsp &nbsp &nbsp &nbsp {{row.3}}
         </div>
-        <button onclick="btn_delete({{row.1}})" type="button" class="btn btn-outline-danger">삭제</button>
+        <button onclick="btn_delete1({{row.1}})" type="button" class="btn btn-outline-danger">삭제</button>
+
+        <a href="/exer/exer_read/{{row.1}}"><button type="button" class="btn btn-secondary">확인</button></a>
+
+
     </div>
+
     {% endfor %}
 </div>
 
 <div id="line1">
-    <input type="text" class="form-control" id="input" placeholder="">
-    <button onclick="btn_submit()" type="submit" class="btn btn-primary">작성</button>
+
+    <p style="color:rebeccapurple; font-size:40px;"> 추가 사항</p>
+    <!--<input type="text" class="form-control" id="input" placeholder="">-->
+    <!--<button onclick="btn_submit()" type="submit" class="btn btn-primary">작성</button>-->
+    <div class="input-group mb-3">
+
+        <input type="text" id="input1" class="form-control" placeholder="title" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+        </div>
+
+        <input type="text" id="input2" class="form-control" placeholder="content" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+        </div>
+
+        <input type="text" id="input3" class="form-control" placeholder="name" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+        </div>
+
+        <input type="text" id="input4" class="form-control" placeholder="pw" aria-label="Recipient's username" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button onclick = "btn_submit1()" class="btn btn-outline-secondary" type="button">Button</button>
+        </div>
+    </div>
+
 </div>
 
 </body>
