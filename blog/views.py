@@ -327,64 +327,18 @@ def exer_read_update(request):
 
         query = '''
             update one
-            set title = {title},content={content}
+            set title = '{title}',content='{content}'
             where no = {no}
         '''.format(title=title, content=content, no=no)
+        print query
+
         cur.execute(query)
 
-        print query
+
 
         #rows = cur.fetchall() #조회한 테이블 결과 전부
 
-
-
     return JsonResponse({'return':'success','title':title,'content':content,'no':no})
 
-# def exer_read_update(request,page):
-#
-#
-#     print "page = ", page
-#
-#     with connections['default'].cursor() as cur:
-#         query = '''
-#
-#
-#             SELECT no, title, content, name
-#             FROM one
-#             where no = {page}
-#         '''.format(page=page)
-#
-#         print query
-#
-#         cur.execute(query)
-#
-#         rows = cur.fetchall()
-#
-#
-#     context={}
-#
-#     context['read'] = rows[0]
-#     return render(request,'exer_read_update.html',context)
-
-# def tests(request):
-#
-#     with connections['default'].cursor() as cur:
-#         query = '''
-#             select title, no, name,
-#             DATE_FORMAT(resist_date, "%Y-%m-%d %H:%m:%s"),
-#             DATE_FORMAT(modify_date, "%Y-%m-%d %H:%m:%s")
-#             from one
-#             order by resist_date asc
-#         '''
-#         cur.execute(query)
-#
-#         print query
-#
-#         rows = cur.fetchall()
-#
-#     context = {}
-#     context['rows'] = rows
-#
-#     return render(request,'test.html',context)
 
 

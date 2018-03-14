@@ -16,7 +16,6 @@ $( document ).ready(function() {
 });
 
 function btn_submit2(){
-    //alert(333);
 
     var no = $('#no').text();
     var title = $('#title').val();
@@ -28,7 +27,8 @@ function btn_submit2(){
             async: false,
             data: {
                 title: title,
-                content: content
+                content: content,
+                no:no
 
             },
             success: function (data) {
@@ -42,9 +42,9 @@ function btn_submit2(){
 
 <body>
 
-<div id = "no">
-  <h3> NO. &nbsp {{aaa}}</h3>
-</div>
+<div id = "no">{{aaa}}</div>
+<!--no값을 따로 만들어주고  ajax를 이용해서 넘긴다   -->
+
     <p style="font-size: 50px; color: #1E8142">Blog</p>
 
     <!--<h2>{{key}}</h2>-->

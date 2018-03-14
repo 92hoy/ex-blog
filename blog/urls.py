@@ -16,8 +16,10 @@ urlpatterns = [
     url(r'^exer$', views.exer, name='exer'),
     url(r'^save1$', views.exer_save, name='exer_save'),
     url(r'^delete1$', views.exer_delete, name='exer_delete'),
+    url(r'^exer_read_update/$', views.exer_read_update, name='exer_read_update'),
     url(r'^exer_read/(?P<page>[0-9]{1,3})$', views.exer_read, name='exer_read'),
-    url(r'^exer_read_update$', views.exer_read_update, name='exer_read_update'),
+
+
 
 
 
