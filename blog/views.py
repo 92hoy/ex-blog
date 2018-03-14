@@ -246,6 +246,7 @@ def exer_save(request):
 
             print query
 
+
     with connections['default'].cursor() as cur:
             query = '''
                 select title, no, content, name
@@ -257,12 +258,11 @@ def exer_save(request):
             print query
 
             rows = cur.fetchall()
+
             title = rows[0][0]
             no = rows[0][1]
             content = rows[0][2]
             name =  rows[0][3]
-
-
 
     return JsonResponse({'return':'success', 'title':title, 'no':no,'content':content, 'name':name})
 
@@ -308,6 +308,83 @@ def exer_read(request,page):
 
 
     context={}
-
     context['read'] = rows[0]
+    context['aaa'] = page
     return render(request,'exer_read.html',context)
+
+
+
+def exer_read_update(request):
+
+    title =request.GET.get('title')
+    content =request.GET.get('content')
+    no =request.GET.get('no')
+    print title
+    print content
+    print no
+
+    with connections['default'].cursor() as cur:
+
+        query = '''
+            update one
+            set title = {title},content={content}
+            where no = {no}
+        '''.format(title=title, content=content, no=no)
+        cur.execute(query)
+
+        print query
+
+        #rows = cur.fetchall() #조회한 테이블 결과 전부
+
+
+
+    return JsonResponse({'return':'success','title':title,'content':content,'no':no})
+
+# def exer_read_update(request,page):
+#
+#
+#     print "page = ", page
+#
+#     with connections['default'].cursor() as cur:
+#         query = '''
+#
+#
+#             SELECT no, title, content, name
+#             FROM one
+#             where no = {page}
+#         '''.format(page=page)
+#
+#         print query
+#
+#         cur.execute(query)
+#
+#         rows = cur.fetchall()
+#
+#
+#     context={}
+#
+#     context['read'] = rows[0]
+#     return render(request,'exer_read_update.html',context)
+
+# def tests(request):
+#
+#     with connections['default'].cursor() as cur:
+#         query = '''
+#             select title, no, name,
+#             DATE_FORMAT(resist_date, "%Y-%m-%d %H:%m:%s"),
+#             DATE_FORMAT(modify_date, "%Y-%m-%d %H:%m:%s")
+#             from one
+#             order by resist_date asc
+#         '''
+#         cur.execute(query)
+#
+#         print query
+#
+#         rows = cur.fetchall()
+#
+#     context = {}
+#     context['rows'] = rows
+#
+#     return render(request,'test.html',context)
+
+

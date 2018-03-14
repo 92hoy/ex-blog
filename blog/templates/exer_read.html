@@ -9,21 +9,71 @@
 
 
 </head>
+<script>
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+});
+
+function btn_submit2(){
+    //alert(333);
+
+    var no = $('#no').text();
+    var title = $('#title').val();
+    var content = $('#content').val();
+
+    $.ajax({
+            type: "GET",
+            url: "/exer/exer_read_update/",
+            async: false,
+            data: {
+                title: title,
+                content: content
+
+            },
+            success: function (data) {
+                if(data.return == 'success'){
+                    alert(data.title);
+                }
+            },
+        });
+}
+</script>
 
 <body>
+
+<div id = "no">
+  <h3> NO. &nbsp {{aaa}}</h3>
+</div>
     <p style="font-size: 50px; color: #1E8142">Blog</p>
 
     <!--<h2>{{key}}</h2>-->
     <!--<h2>{{hello}}</h2>-->
     <!--<h2>{{test}}</h2>-->
+
 <ul class="list-group">
   <li class="list-group-item">No. &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp {{read.0}}</li>
-  <li class="list-group-item">Title.&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp{{read.1}}</li>
-  <li class="list-group-item">Content. &nbsp &nbsp&nbsp&nbsp {{read.2}}</li>
+
+  <li class="list-group-item">Title.&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp{{read.1}}
+     &nbsp &nbsp &nbsp &nbsp<input type="text" id="title">
+  </li>
+
+  <li class="list-group-item">Content. &nbsp &nbsp&nbsp&nbsp {{read.2}}
+       &nbsp &nbsp &nbsp &nbsp <input type="text" id="content">
+  </li>
+
   <li class="list-group-item">Name. &nbsp &nbsp &nbsp &nbsp &nbsp {{read.3}}</li>
+
   <li class="list-group-item">Resist_Time.&nbsp&nbsp&nbsp&nbsp{{read.4}}</li>
+
     <li class="list-group-item">Modify_Time.&nbsp&nbsp&nbsp&nbsp{{read.5}}</li>
 </ul>
+
+<button onclick = "btn_submit2()" class="btn btn-outline-secondary" type="button">수정</button>
+
+<!--{% for page in aaa %}-->
+     <!--<button type="button" id="btn_submit2"class="btn btn-secondary">확인</button>-->
+    <!--{% endfor %}-->
 
 </body>
 </html>

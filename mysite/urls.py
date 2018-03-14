@@ -22,5 +22,6 @@ urlpatterns = [
     #url(r'^blog/', include('blog_read.urls')),
     url(r'^happy/', include('blog.urls')),
     url(r'^exer/', include('blog.urls')),
+    #url(r'^test/', include('blog.urls')),
 
 ]
