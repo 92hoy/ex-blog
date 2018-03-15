@@ -13,6 +13,7 @@
 
 $( document ).ready(function() {
     console.log( "ready!" );
+
 });
 
 function btn_submit2(){
@@ -33,7 +34,13 @@ function btn_submit2(){
             },
             success: function (data) {
                 if(data.return == 'success'){
-                    alert(data.title);
+
+
+                    $('#detail').click(function() {
+                        location.reload();
+                        alert("Update Success");
+                    });
+
                 }
             },
         });
@@ -41,11 +48,11 @@ function btn_submit2(){
 </script>
 
 <body>
-
-<div id = "no">{{aaa}}</div>
+<div id ="detail">
+<section id = "no" hidden>{{aaa}}</section>
 <!--no값을 따로 만들어주고  ajax를 이용해서 넘긴다   -->
 
-    <p style="font-size: 50px; color: #1E8142">Blog</p>
+  <a href="/exer"><p style="font-size: 50px; color: #1E8142">Blog</p></a>
 
     <!--<h2>{{key}}</h2>-->
     <!--<h2>{{hello}}</h2>-->
@@ -55,7 +62,7 @@ function btn_submit2(){
   <li class="list-group-item">No. &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp {{read.0}}</li>
 
   <li class="list-group-item">Title.&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp{{read.1}}
-     &nbsp &nbsp &nbsp &nbsp<input type="text" id="title">
+     &nbsp &nbsp &nbsp &nbsp <input type="text" id="title">
   </li>
 
   <li class="list-group-item">Content. &nbsp &nbsp&nbsp&nbsp {{read.2}}
@@ -70,6 +77,9 @@ function btn_submit2(){
 </ul>
 
 <button onclick = "btn_submit2()" class="btn btn-outline-secondary" type="button">수정</button>
+
+<a href="/exer/exer"><button type="button" id="btn"class="btn btn-secondary" float="left">이전 페이지</button></a>
+
 
 <!--{% for page in aaa %}-->
      <!--<button type="button" id="btn_submit2"class="btn btn-secondary">확인</button>-->
